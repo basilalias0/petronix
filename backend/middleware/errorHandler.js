@@ -1,0 +1,11 @@
+// Global Error Handler
+const errorHandler = ((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(err.status || 500).json({
+      message: err.message || 'Internal Server Error',
+      ...(process.env.NODE_ENV === 'development' && { stack: err.stack }), // Show stack trace in dev mode
+    });
+  });
+
+
+module.exports = errorHandler
